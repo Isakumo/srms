@@ -1,0 +1,13 @@
+<?php
+
+return [
+    'paths' => [
+        'app',
+        'bootstrap',
+        'config',
+        'database',
+        'resources',
+        'routes',
+        'tests',
+    ],
+];
