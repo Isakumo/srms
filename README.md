@@ -1,50 +1,59 @@
-# School Result Management System (SRMS)
+# srms
+school result management system
 
-A Laravel-based school management system for Nursery, Primary, Junior Secondary, and Senior Secondary operations.
+## Phase 1: Identity, Authentication & RBAC
+
+This repository now includes the initial foundation for the Phase 1 scope:
+
+- school model and database table
+- user model with role/permission helpers
+- role and permission models and migrations
+- login/logout routes and auth views
+- RBAC middleware for active-user and permission checks
+- demo school and permission seeders
+- basic authentication and authorization tests
+
+## Important notes
+
+This implementation is intentionally kept focused on the core security and identity foundation required by the implementation plan. The remaining school modules will be added in later phases according to the project plan.
 
 ## Project status
 
-This repository has been initialized to support the implementation plan in `SCHOOL_MANAGEMENT_SYSTEM_IMPLEMENTATION_PLAN.md`.
+- [x] Phase 0 project initialization
+- [x] Phase 1 identity and RBAC foundation
+- [ ] Phase 2 school and academic configuration
+- [ ] Phase 3 students and guardians
+- [ ] Phase 4 staff and teacher management
+- [ ] Phase 5 subjects, enrollment and registration
+- [ ] Phase 6 dashboards
+- [ ] Phase 7 timetable
+- [ ] Phase 8 attendance
+- [ ] Phase 9 assessment configuration
+- [ ] Phase 10 score entry
+- [ ] Phase 11 results and report cards
+- [ ] Phase 12 promotion and graduation
+- [ ] Phase 13 admissions
+- [ ] Phase 14 finance foundation
+- [ ] Phase 15 payments and expenses
+- [ ] Phase 16 communication
+- [ ] Phase 17 requests
+- [ ] Phase 18 reports
+- [ ] Phase 19 audit and security hardening
+- [ ] Phase 20 UX polish
+- [ ] Phase 21 QA and regression
+- [ ] Phase 22 deployment readiness
 
-## Phase 0 status
+## Quick start
 
-- [x] Repository initialized
-- [x] Laravel app skeleton created
-- [x] Environment example configured
-- [x] Frontend tooling configured for Tailwind + Alpine
-- [x] Test runner configured
-- [x] Implementation checklist created
+1. Install Composer dependencies.
+2. Install npm dependencies.
+3. Copy `.env.example` to `.env` and configure your MySQL database.
+4. Run `php artisan key:generate`.
+5. Run migrations and seeders.
+6. Access `/login` using the seeded admin account:
+   - username: `admin`
+   - password: `password123`
 
-## Stack
+## Security reminder
 
-- Laravel
-- MySQL / InnoDB
-- Blade + Tailwind CSS + Alpine.js
-- PHPUnit
-
-## Local setup
-
-1. Install PHP 8.2+ and Composer.
-2. Install Node.js and npm.
-3. Run:
-   ```bash
-   composer install
-   npm install
-   cp .env.example .env
-   php artisan key:generate
-   ```
-4. Update database credentials in `.env`.
-5. Run database migrations and seeders when ready:
-   ```bash
-   php artisan migrate
-   php artisan db:seed
-   ```
-
-## Documentation
-
-- Implementation plan: `SCHOOL_MANAGEMENT_SYSTEM_IMPLEMENTATION_PLAN.md`
-- Phase checklist: `IMPLEMENTATION_CHECKLIST.md`
-
-## Notes
-
-This repo is intentionally structured to follow the implementation plan in phases. Development is expected to continue from Phase 1 after the foundation is validated.
+Follow the implementation plan strictly. Do not bypass authorization, and do not silently weaken business rules in the pursuit of UI convenience.

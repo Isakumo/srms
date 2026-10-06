@@ -1,23 +1,28 @@
 <?php
 
-use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration;
+namespace App\Providers;
 
-return Application::configure(basePath: dirname(__DIR__))
-    ->withRouting(
-        using: __DIR__.'/../routes/web.php',
-        commands: __DIR__.'/../routes/console.php',
-    )
-    ->withMiddleware(function (Configuration $config) {
-        $config->merge([
-            'middleware' => [
-                \Illuminate\Cookie\Middleware\EncryptCookies::class,
-                \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-                \Illuminate\Session\Middleware\StartSession::class,
-                \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-                \Illuminate\Foundation\Http\Middleware\ValidateCsrfToken::class,
-                \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            ],
-        ]);
-    })
-    ->create();
+use App\Http\Middleware\EnsureSchoolScope;
+use App\Http\Middleware\EnsureUserHasPermission;
+use App\Http\Middleware\EnsureUserIsActive;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function register(): void
+    {
+        //
+    }
+
+    public function boot(): void
+    {
+        $this->app['router']->aliasMiddleware('active.user', EnsureUserIsActive::class);
+        $this->app['router']->aliasMiddleware('permission', EnsureUserHasPermission::class);
+        $this->app['router']->aliasMiddleware('school.scope', EnsureSchoolScope::class);
+
+        Blade::if('hasPermission', function (string $permission) {
+            return auth()->check() && auth()->user()->hasPermission($permission);
+        });
+    }
+}
